@@ -13,6 +13,10 @@ An AI-assisted resume screening application that helps recruiters evaluate candi
 - Show candidate strengths and concerns
 - Store candidate and screening information
 
+## Live Demo
+
+[Smart Resume Screener](https://smart-resume-screener-7k3r.onrender.com/)
+
 ## How It Works
 
 ```text
