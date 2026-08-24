@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>Shortlist</title>
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    :root {
+      --desk: #e7e2d8;
+      --paper: #fbfaf5;
+      --ink: #272722;
+      --muted: #77746b;
+      --line: #d4cec1;
+      --green: #315b43;
+      --red: #a64035;
+      --white: #fffef9;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--desk);
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    .top {
+      height: 62px;
+      padding: 0 42px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      background: var(--paper);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .logo {
+      font-family: "DM Mono", monospace;
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    .top-note {
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    main {
+      width: min(
+        1160px,
+        calc(100% - 48px)
+      );
+
+      margin: 45px auto 80px;
+    }
+
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+
+      margin-bottom: 40px;
+    }
+
+    .heading small {
+      display: block;
+
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+
+      color: var(--green);
+
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+
+      font-size: clamp(
+        42px,
+        6vw,
+        72px
+      );
+
+      line-height: .88;
+      letter-spacing: -4px;
+      font-weight: 600;
+    }
+
+    .principle {
+      width: 240px;
+
+      border-left: 2px solid var(--ink);
+
+      padding-left: 16px;
+
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .layout {
+      display: grid;
+
+      grid-template-columns:
+        350px 1fr;
+
+      gap: 26px;
+
+      align-items: start;
+    }
+
+    .paper {
+      background: var(--paper);
+      border: 1px solid var(--line);
+    }
+
+    .paper + .paper {
+      margin-top: 16px;
+    }
+
+    .paper-title {
+      padding: 15px 18px;
+
+      border-bottom: 1px solid var(--line);
+
+      display: flex;
+      justify-content: space-between;
+
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .paper-body {
+      padding: 20px;
+    }
+
+    label {
+      display: block;
+
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+
+      color: var(--muted);
+      text-transform: uppercase;
+
+      margin-bottom: 6px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+
+      background: var(--white);
+
+      border: 1px solid var(--line);
+
+      border-radius: 0;
+
+      color: var(--ink);
+
+      font: inherit;
+
+      padding: 11px;
+
+      margin-bottom: 17px;
+    }
+
+    textarea {
+      min-height: 170px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: 2px solid var(--green);
+      outline-offset: -2px;
+    }
+
+    input[type="file"] {
+      padding: 10px;
+    }
+
+    button {
+      width: 100%;
+
+      border: 0;
+      border-radius: 0;
+
+      background: var(--ink);
+      color: var(--paper);
+
+      padding: 13px;
+
+      cursor: pointer;
+
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+
+      letter-spacing: .7px;
+      text-transform: uppercase;
+    }
+
+    button:hover {
+      background: var(--green);
+    }
+
+    .note {
+      margin-top: 10px;
+
+      color: var(--muted);
+
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+
+      line-height: 1.5;
+    }
+
+    .results-header {
+      padding: 20px;
+
+      border-bottom: 1px solid var(--line);
+
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+    }
+
+    .results-header h2 {
+      margin: 0;
+
+      font-size: 23px;
+      font-weight: 600;
+    }
+
+    .count {
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      color: var(--muted);
+    }
+
+    .empty {
+      padding: 80px 25px;
+
+      text-align: center;
+
+      color: var(--muted);
+
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+    }
+
+    .candidate {
+      padding: 23px;
+
+      border-bottom: 1px solid var(--line);
+    }
+
+    .candidate:last-child {
+      border-bottom: 0;
+    }
+
+    .candidate-main {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .candidate-name {
+      font-size: 21px;
+      font-weight: 600;
+    }
+
+    .candidate-email {
+      margin-top: 4px;
+
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+
+      color: var(--muted);
+    }
+
+    .score {
+      min-width: 72px;
+      height: 46px;
+
+      border: 2px solid var(--ink);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-family: "DM Mono", monospace;
+      font-size: 15px;
+    }
+
+    .score.good {
+      border-color: var(--green);
+      color: var(--green);
+    }
+
+    .score.low {
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    .summary {
+      margin: 19px 0;
+
+      max-width: 700px;
+
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .columns {
+      display: grid;
+
+      grid-template-columns:
+        1fr 1fr;
+
+      gap: 20px;
+    }
+
+    .section-label {
+      margin-bottom: 8px;
+
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+
+      text-transform: uppercase;
+      letter-spacing: 1px;
+
+      color: var(--muted);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .tag {
+      background: var(--white);
+
+      border: 1px solid var(--line);
+
+      padding: 5px 7px;
+
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+    }
+
+    .tag.match {
+      color: var(--green);
+      border-color: #9fb6a5;
+    }
+
+    .tag.missing {
+      color: var(--red);
+      border-color: #d4aaa5;
+    }
+
+    @media(max-width: 800px) {
+
+      .top {
+        padding: 0 18px;
+      }
+
+      main {
+        width: calc(100% - 28px);
+        margin-top: 25px;
+      }
+
+      .heading {
+        display: block;
+      }
+
+      .principle {
+        margin-top: 25px;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .columns {
+        grid-template-columns: 1fr;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+<header class="top">
+
+  <div class="logo">
+    Shortlist / desk 01
+  </div>
+
+  <div class="top-note">
+    first-pass candidate review
+  </div>
+
+</header>
+
+
+<main>
+
+  <section class="heading">
+
+    <div>
+
+      <small>
+        Candidate review system
+      </small>
+
+      <h1>
+        Find the people<br>
+        worth reading.
+      </h1>
+
+    </div>
+
+    <div class="principle">
+
+      THE RULE
+
+      <br><br>
+
+      Let the system organise
+      the pile. Keep the hiring
+      decision with the recruiter.
+
+    </div>
+
+  </section>
+
+
+  <section class="layout">
+
+
+    <div>
+
+
+      <div class="paper">
+
+        <div class="paper-title">
+
+          <span>
+            Job brief
+          </span>
+
+          <span>
+            01
+          </span>
+
+        </div>
+
+
+        <div class="paper-body">
+
+          <label>
+            Role
+          </label>
+
+          <input
+            id="jobTitle"
+            placeholder="Software Engineer Intern"
+          >
+
+
+          <label>
+            Job description
+          </label>
+
+          <textarea
+            id="jobDesc"
+            placeholder="Paste the job description..."
+          ></textarea>
+
+
+          <button
+            onclick="createJob()"
+          >
+            Save role
+          </button>
+
+          <div
+            class="note"
+            id="jobNote"
+          ></div>
+
+        </div>
+
+      </div>
+
+
+      <div class="paper">
+
+        <div class="paper-title">
+
+          <span>
+            Resume pile
+          </span>
+
+          <span>
+            02
+          </span>
+
+        </div>
+
+
+        <div class="paper-body">
+
+          <input
+            type="file"
+            id="resumeFile"
+            accept=".pdf,.docx,.txt"
+          >
+
+          <button
+            onclick="uploadResume()"
+          >
+            Add resume
+          </button>
+
+          <div
+            class="note"
+            id="uploadNote"
+          ></div>
+
+        </div>
+
+      </div>
+
+
+      <div class="paper">
+
+        <div class="paper-title">
+
+          <span>
+            Screening
+          </span>
+
+          <span>
+            03
+          </span>
+
+        </div>
+
+
+        <div class="paper-body">
+
+          <label>
+            Role ID
+          </label>
+
+          <input
+            id="jobIdInput"
+            placeholder="Automatically filled"
+          >
+
+          <button
+            onclick="runMatch()"
+          >
+            Screen pile
+          </button>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <div class="paper">
+
+      <div class="results-header">
+
+        <h2>
+          Shortlist
+        </h2>
+
+        <span
+          class="count"
+          id="resultCount"
+        >
+          waiting
+        </span>
+
+      </div>
+
+
+      <div id="results">
+
+        <div class="empty">
+
+          Nothing screened yet.
+
+          <br><br>
+
+          Add a role and some resumes.
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </section>
+
+</main>
+
+
+<script>
+
+function escapeHtml(value) {
+
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+async function createJob() {
+
+  const title =
+    document
+      .getElementById("jobTitle")
+      .value
+      .trim();
+
+  const description =
+    document
+      .getElementById("jobDesc")
+      .value
+      .trim();
+
+  const note =
+    document.getElementById("jobNote");
+
+
+  if (!title || !description) {
+
+    note.innerText =
+      "Add the role and job description.";
+
+    return;
+  }
+
+
+  note.innerText =
+    "Saving...";
+
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/jobs",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            title,
+            description
+          })
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+      throw new Error(
+        data.error
+      );
+    }
+
+
+    document
+      .getElementById(
+        "jobIdInput"
+      )
+      .value = data.id;
+
+
+    note.innerText =
+      "Role saved.";
+
+  } catch (error) {
+
+    note.innerText =
+      error.message;
+
+  }
+
+}
+
+
+async function uploadResume() {
+
+  const file =
+    document
+      .getElementById(
+        "resumeFile"
+      )
+      .files[0];
+
+  const note =
+    document.getElementById(
+      "uploadNote"
+    );
+
+
+  if (!file) {
+
+    note.innerText =
+      "Choose a resume first.";
+
+    return;
+  }
+
+
+  const formData =
+    new FormData();
+
+  formData.append(
+    "resume",
+    file
+  );
+
+
+  note.innerText =
+    "Reading resume...";
+
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/candidates",
+        {
+          method: "POST",
+          body: formData
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+      throw new Error(
+        data.error
+      );
+    }
+
+
+    note.innerText =
+      `${data.name} added — ${data.skills.length} skills found.`;
+
+
+    document
+      .getElementById(
+        "resumeFile"
+      )
+      .value = "";
+
+  } catch (error) {
+
+    note.innerText =
+      error.message;
+
+  }
+
+}
+
+
+async function runMatch() {
+
+  const jobId =
+    document
+      .getElementById(
+        "jobIdInput"
+      )
+      .value
+      .trim();
+
+  const results =
+    document.getElementById(
+      "results"
+    );
+
+  const count =
+    document.getElementById(
+      "resultCount"
+    );
+
+
+  if (!jobId) {
+
+    results.innerHTML =
+      `<div class="empty">
+        Save a job first.
+      </div>`;
+
+    return;
+  }
+
+
+  results.innerHTML =
+    `<div class="empty">
+      Going through the pile...
+    </div>`;
+
+  count.innerText =
+    "screening";
+
+
+  try {
+
+    const response =
+      await fetch(
+        `/api/match/${jobId}`,
+        {
+          method: "POST"
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if (!response.ok) {
+      throw new Error(
+        data.error
+      );
+    }
+
+
+    if (
+      !data.shortlist.length
+    ) {
+
+      results.innerHTML =
+        `<div class="empty">
+          No resumes have been added yet.
+        </div>`;
+
+      count.innerText =
+        "0 candidates";
+
+      return;
+    }
+
+
+    count.innerText =
+      `${data.shortlist.length} candidates`;
+
+
+    results.innerHTML =
+      data.shortlist
+        .map(renderCandidate)
+        .join("");
+
+
+  } catch (error) {
+
+    results.innerHTML =
+      `<div class="empty">
+        ${escapeHtml(
+          error.message
+        )}
+      </div>`;
+
+    count.innerText =
+      "error";
+
+  }
+
+}
+
+
+function renderCandidate(candidate) {
+
+  const scoreClass =
+    candidate.score >= 7
+      ? "good"
+      : "low";
+
+
+  const matched =
+    candidate.matched_skills
+      .map(skill =>
+        `<span class="tag match">
+          ${escapeHtml(skill)}
+        </span>`
+      )
+      .join("");
+
+
+  const missing =
+    candidate.missing_skills
+      .map(skill =>
+        `<span class="tag missing">
+          ${escapeHtml(skill)}
+        </span>`
+      )
+      .join("");
+
+
+  return `
+
+    <article class="candidate">
+
+      <div class="candidate-main">
+
+        <div>
+
+          <div class="candidate-name">
+
+            ${escapeHtml(
+              candidate.candidateName
+            )}
+
+          </div>
+
+          <div class="candidate-email">
+
+            ${escapeHtml(
+              candidate.email ||
+              "contact not found"
+            )}
+
+          </div>
+
+        </div>
+
+
+        <div
+          class="score ${scoreClass}"
+        >
+
+          ${candidate.score}/10
+
+        </div>
+
+      </div>
+
+
+      <div class="summary">
+
+        ${escapeHtml(
+          candidate.summary
+        )}
+
+      </div>
+
+
+      <div class="columns">
+
+        <div>
+
+          <div class="section-label">
+            Evidence found
+          </div>
+
+          <div class="tags">
+
+            ${
+              matched ||
+              `<span class="tag">
+                none listed
+              </span>`
+            }
+
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="section-label">
+            Gaps
+          </div>
+
+          <div class="tags">
+
+            ${
+              missing ||
+              `<span class="tag match">
+                no major gaps
+              </span>`
+            }
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  `;
+}
+
+</script>
+
+</body>
+
+</html>

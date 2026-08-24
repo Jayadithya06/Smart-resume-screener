@@ -1,0 +1,15 @@
+node_modules/
+.env
+uploads/
+screener.db
+
+dist/
+.next/
+out/
+
+.vscode/
+.idea/
+
+*.log
+.DS_Store
+Thumbs.db
