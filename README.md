@@ -1,113 +1,140 @@
-# Shortlist
+# Smart Resume Screener
 
-A lightweight resume screening application that helps recruiters
-organise a large set of resumes against a particular job description.
+An AI-assisted resume screening application that helps recruiters evaluate candidates against a specific job description.
 
-The system extracts useful candidate information from resumes and
-uses an LLM to compare that information with the requirements of a role.
+## Features
 
-## What it does
+- Upload PDF, DOCX, and TXT resumes
+- Extract candidate skills, education, and experience
+- Create and manage job descriptions
+- Compare candidates against a selected job
+- Generate a 1–10 fit score
+- Show matched and missing skills
+- Show candidate strengths and concerns
+- Store candidate and screening information
 
-1. Accepts PDF, DOCX and TXT resumes.
-2. Extracts readable text from the resume.
-3. Uses Gemini to structure:
-   - skills
-   - experience
-   - education
-   - total experience
-4. Stores candidate information in SQLite.
-5. Stores job descriptions.
-6. Compares candidates against a selected job.
-7. Produces a 1–10 fit score.
-8. Shows why the candidate matched.
-9. Shows matched and missing skills.
-10. Stores screening results.
+## How It Works
 
-## Architecture
+```text
+Resume
+   ↓
+Text Extraction
+   ↓
+Gemini AI Resume Parsing
+   ↓
+Candidate Profile
+   ↓
+Job Description
+   ↓
+Candidate Matching
+   ↓
+Fit Score & Screening Insights
+```
 
-Browser
-    |
-    v
-Express API
-    |
-    +---- Resume parser
-    |
-    +---- Gemini
-    |
-    +---- SQLite database
-    |
-    v
-Screening results
+## Scoring
 
-## Technology
+| Category | Maximum Points |
+|---|---:|
+| Required Skills | 50 |
+| Relevant Experience | 20 |
+| Education | 10 |
+| Practical / Project Experience | 20 |
+| **Total** | **100** |
 
-- Node.js
-- Express
-- Gemini API
-- sql.js / SQLite
-- PDF parsing
-- DOCX parsing
-- HTML/CSS/JavaScript
+The total score is converted into a **1–10 fit score**.
 
-## LLM usage
+## Technology Stack
 
-The application uses two separate LLM tasks.
+- **Frontend:** HTML, CSS, JavaScript
+- **Backend:** Node.js, Express.js
+- **AI:** Google Gemini API
+- **Database:** SQLite / sql.js
+- **Document Processing:** PDF, DOCX, TXT
 
-### Resume extraction
+## Project Structure
 
-The first prompt converts unstructured resume text into a
-consistent candidate profile.
+```text
+Smart-resume-screener/
+│
+├── public/
+│   └── index.html
+│
+├── server/
+│   ├── db.js
+│   ├── index.js
+│   ├── matcher.js
+│   ├── parseResume.js
+│   └── routes.js
+│
+├── .gitignore
+├── package.json
+├── package-lock.json
+└── README.md
+```
 
-The model is explicitly instructed not to invent information.
+## Running Locally
 
-### Candidate matching
+### 1. Clone the repository
 
-The second prompt compares the structured candidate profile
-with the job description.
+```bash
+git clone https://github.com/Jayadithya06/Smart-resume-screener.git
+cd Smart-resume-screener
+```
 
-It produces:
+### 2. Install dependencies
 
-- score
-- summary
-- matched skills
-- missing skills
-- strengths
-- concerns
+```bash
+npm install
+```
 
-## Why use an LLM?
+### 3. Configure the Gemini API
 
-Traditional keyword matching can miss semantic relationships.
+Create a `.env` file in the project root:
 
-For example, a resume may describe an experience without using
-exactly the same wording as the job description.
+```env
+GEMINI_API_KEY=your_gemini_api_key
+```
 
-An LLM allows the application to consider the meaning of the
-candidate's experience rather than only matching exact words.
+### 4. Start the application
+
+```bash
+npm start
+```
+
+Open:
+
+```text
+http://localhost:5000
+```
+
+## LLM Usage
+
+The Gemini API is used for two main tasks:
+
+- **Resume Parsing:** Converts resume text into structured candidate information.
+- **Candidate Matching:** Compares the candidate profile with the job description and identifies relevant matches and gaps.
+
+The prompts instruct the model not to invent information that is not present in the resume.
 
 ## Limitations
 
-This is a first-pass screening tool and should not make the final
-hiring decision.
+- AI-generated results may not always be completely accurate.
+- Poorly formatted resumes may affect information extraction.
+- LLM-based scoring may have some variation.
+- The system is intended for first-pass screening.
+- Final hiring decisions should involve human review.
 
-Possible issues include:
+## Future Improvements
 
-- incorrect information extraction
-- ambiguous resumes
-- inconsistent job descriptions
-- LLM scoring variation
-- bias in source resumes or job descriptions
+- Bulk resume upload
+- Candidate filtering and ranking
+- Duplicate resume detection
+- Recruiter-adjustable scoring
+- Authentication
+- Screening history
+- Production database
+- Screening accuracy evaluation
 
-The score should therefore be treated as a recommendation for
-human review rather than a final hiring decision.
+## Author
 
-## Future improvements
-
-- recruiter-adjustable scoring criteria
-- duplicate resume detection
-- candidate search and filtering
-- bulk resume upload
-- interview notes
-- audit history
-- authentication
-- production database
-- evaluation dataset for measuring screening accuracy
+**Jayadithya**
